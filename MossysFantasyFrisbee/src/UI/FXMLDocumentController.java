@@ -3,12 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mossysfantasyfrisbee;
+package UI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import LogicalClasses.CompetitionRules;
+import LogicalClasses.FantasySelection;
+import LogicalClasses.Gender;
+import LogicalClasses.MixedRule;
+import LogicalClasses.Player;
+import LogicalClasses.Team;
+import LogicalClasses.TeamRule;
+import LogicalClasses.Tournament;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * This is where the code that handles the UI will live. It'll probably work out
@@ -19,11 +32,15 @@ import javafx.fxml.Initializable;
  */
 public class FXMLDocumentController implements Initializable {
 
-    CompetitionRules rules;
-    FantasySelection selection;
+    private CompetitionRules rules;
+    private FantasySelection selection;
+    
+    @FXML
+    private AnchorPane appAnchor;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Tournament tournament = new Tournament();
         rules = new CompetitionRules(5, MixedRule.MIXED, TeamRule.ONE_PER_TEAM);
         selection = new FantasySelection(1, rules);
     }
@@ -34,18 +51,24 @@ public class FXMLDocumentController implements Initializable {
      */
     @FXML
     private void addMalePlayer() {
-        Player p = new Player("Bruce");
-        p.setTeam(new Team("A"));//ACTUALLY A DIFFERENT TEAM EVERY TIME! Will add more test code later to make this important
-        p.setGender(Gender.MALE);
-        String error = selection.addPlayer(p);
-        if (error != null) {
-            System.out.println(error);
-        } else {
-            selection.addPlayer(p);
-            System.out.println("Now the selection is ");
-            for (Player player : selection.getSelection()) {
-                System.out.println(player.getName());
-            }
+//        Player p = new Player("Bruce");
+//        p.setTeam(new Team("A"));//ACTUALLY A DIFFERENT TEAM EVERY TIME! Will add more test code later to make this important
+//        p.setGender(Gender.MALE);
+//        String error = selection.addPlayer(p);
+//        if (error != null) {
+//            System.out.println(error);
+//        } else {
+//            selection.addPlayer(p);
+//            System.out.println("Now the selection is ");
+//            for (Player player : selection.getSelection()) {
+//                System.out.println(player.getName());
+//            }
+//        }
+        appAnchor.getChildren().remove(0);
+        try {
+            appAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/UI/PlayerEntryForm.fxml")));
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

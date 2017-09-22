@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mossysfantasyfrisbee;
+package LogicalClasses;
 
 /**
  *
- * @author Rowan
+ * @author Andy
  */
-public enum MixedRule {
-    OPEN,
-    MIXED,
-    LOOSE_MIXED
-}
+public enum Gender {
+    MALE, FEMALE, UNKNOWN
+};

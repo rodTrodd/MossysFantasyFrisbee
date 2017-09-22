@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="UI.PlayerEntryFormController">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0">
+            <center>
+                <VBox>
+                    <children>
+                        <GridPane BorderPane.alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Name" />
+                                <Label text="Shirt Number" GridPane.rowIndex="1" />
+                                <Label text="Gender" GridPane.rowIndex="2" />
+                                <Label text="Team" GridPane.rowIndex="3" />
+                                <TextField GridPane.columnIndex="1" />
+                                <fx:define>
+                                    <Integer fx:id="min" fx:value="0"/>
+                                    <Integer fx:id="max" fx:value="99"/>
+                                </fx:define>
+                                <Spinner fx:id="spinner" GridPane.columnIndex="1" GridPane.rowIndex="1" BorderPane.alignment="CENTER" min="$min" max="$max">
+                                </Spinner>
+                                <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <children>
+                                        <RadioButton mnemonicParsing="false" text="RadioButton" />
+                                        <RadioButton mnemonicParsing="false" text="RadioButton" />
+                                        <RadioButton mnemonicParsing="false" text="RadioButton" />
+                                    </children>
+                                </HBox>
+                                <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            </children>
+                        </GridPane>
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Button mnemonicParsing="false" text="Cancel" />
+                                <Button mnemonicParsing="false" text="Confirm" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+            <top>
+                <Label text="Enter Player Details" BorderPane.alignment="CENTER" />
+            </top>
+        </BorderPane>
+    </children>
+</AnchorPane>

@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mossysfantasyfrisbee;
+package LogicalClasses;
+
+import LogicalClasses.Gender;
 
 /**
  *
  * @author Andy
+ * @author RTrodd
  */
 public class Player {
     private String name;
