@@ -40,7 +40,8 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Tournament tournament = new Tournament();
+        Tournament tournament = new Tournament(4);
+        tournament.addTeam(new Team("Dorset"));
         rules = new CompetitionRules(5, MixedRule.MIXED, TeamRule.ONE_PER_TEAM);
         selection = new FantasySelection(1, rules);
     }

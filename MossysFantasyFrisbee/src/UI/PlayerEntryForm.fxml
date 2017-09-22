@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="UI.PlayerEntryFormController">
+<AnchorPane id="AnchorPane" minWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.PlayerEntryFormController">
     <children>
-        <BorderPane prefHeight="200.0" prefWidth="200.0">
+        <BorderPane minWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
                 <VBox>
                     <children>
@@ -29,27 +29,32 @@
                                 <Label text="Shirt Number" GridPane.rowIndex="1" />
                                 <Label text="Gender" GridPane.rowIndex="2" />
                                 <Label text="Team" GridPane.rowIndex="3" />
-                                <TextField GridPane.columnIndex="1" />
-                                <fx:define>
-                                    <Integer fx:id="min" fx:value="0"/>
-                                    <Integer fx:id="max" fx:value="99"/>
-                                </fx:define>
-                                <Spinner fx:id="spinner" GridPane.columnIndex="1" GridPane.rowIndex="1" BorderPane.alignment="CENTER" min="$min" max="$max">
-                                </Spinner>
+                                <TextField fx:id="txfName" GridPane.columnIndex="1" />
+                                
                                 <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <children>
-                                        <RadioButton mnemonicParsing="false" text="RadioButton" />
-                                        <RadioButton mnemonicParsing="false" text="RadioButton" />
-                                        <RadioButton mnemonicParsing="false" text="RadioButton" />
+                                        <RadioButton fx:id="rbFemale" mnemonicParsing="false" text="Female">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="4.0" right="7.0" top="3.0" />
+                                 </HBox.margin></RadioButton>
+                                        <RadioButton fx:id="rbMale" mnemonicParsing="false" text="Male">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="4.0" right="7.0" top="3.0" />
+                                 </HBox.margin></RadioButton>
+                                        <RadioButton fx:id="rbOther" mnemonicParsing="false" text="Other">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="4.0" right="7.0" top="3.0" />
+                                 </HBox.margin></RadioButton>
                                     </children>
                                 </HBox>
-                                <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <ComboBox fx:id="cbxTeam" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txfShirtNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                         <HBox alignment="CENTER">
                             <children>
                                 <Button mnemonicParsing="false" text="Cancel" />
-                                <Button mnemonicParsing="false" text="Confirm" />
+                                <Button mnemonicParsing="false" onAction="#trySubmit" text="Confirm" />
                             </children>
                         </HBox>
                     </children>
