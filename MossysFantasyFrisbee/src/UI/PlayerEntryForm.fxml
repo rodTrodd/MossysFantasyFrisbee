@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.PlayerEntryFormController">
+<AnchorPane id="AnchorPane" minHeight="200.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.PlayerEntryFormController">
     <children>
         <BorderPane minWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
@@ -51,18 +51,16 @@
                         <TextField fx:id="txfShirtNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
-                        <HBox alignment="CENTER">
-                            <children>
-                                <Button mnemonicParsing="false" text="Cancel" />
-                                <Button mnemonicParsing="false" onAction="#trySubmit" text="Confirm" />
-                            </children>
-                        </HBox>
+                        <HBox alignment="CENTER" />
                     </children>
                 </VBox>
             </center>
             <top>
                 <Label text="Enter Player Details" BorderPane.alignment="CENTER" />
             </top>
+         <bottom>
+            <Label fx:id="lblError" BorderPane.alignment="CENTER" />
+         </bottom>
         </BorderPane>
     </children>
 </AnchorPane>

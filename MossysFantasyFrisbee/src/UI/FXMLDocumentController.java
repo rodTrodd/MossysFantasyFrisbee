@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import LogicalClasses.CompetitionRules;
 import LogicalClasses.FantasySelection;
-import LogicalClasses.Gender;
 import LogicalClasses.MixedRule;
 import LogicalClasses.Player;
 import LogicalClasses.Team;
@@ -21,7 +20,12 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 /**
  * This is where the code that handles the UI will live. It'll probably work out
@@ -34,7 +38,7 @@ public class FXMLDocumentController implements Initializable {
 
     private CompetitionRules rules;
     private FantasySelection selection;
-    
+
     @FXML
     private AnchorPane appAnchor;
 
@@ -51,47 +55,40 @@ public class FXMLDocumentController implements Initializable {
      * later date
      */
     @FXML
-    private void addMalePlayer() {
-//        Player p = new Player("Bruce");
-//        p.setTeam(new Team("A"));//ACTUALLY A DIFFERENT TEAM EVERY TIME! Will add more test code later to make this important
-//        p.setGender(Gender.MALE);
-//        String error = selection.addPlayer(p);
-//        if (error != null) {
-//            System.out.println(error);
-//        } else {
-//            selection.addPlayer(p);
-//            System.out.println("Now the selection is ");
-//            for (Player player : selection.getSelection()) {
-//                System.out.println(player.getName());
-//            }
-//        }
-        appAnchor.getChildren().remove(0);
+    private void addNewPlayer() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/PlayerEntryForm.fxml"));
+        //appAnchor.getChildren().remove(0);
+        Dialog<Player> dialog = new Dialog();
+        dialog.setTitle("New Player");
+        dialog.setHeaderText("Fill in all of the fields in the form below...");
+        dialog.setResizable(true);
+
         try {
-            appAnchor.getChildren().add(FXMLLoader.load(getClass().getResource("/UI/PlayerEntryForm.fxml")));
+            dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        dialog.setResultConverter((ButtonType b) -> {
+            if (b == buttonTypeOk) {
+                PlayerEntryFormController pefc = (PlayerEntryFormController) fxmlLoader.getController();
+                if (pefc != null) {
 
-    /**
-     * Dummy method to test some of the selection logic - to be taken out at a
-     * later date
-     */
-    @FXML
-    private void addFemalePlayer() {
-        Player p = new Player("Sheila");
-        p.setTeam(new Team("B"));//ACTUALLY A DIFFERENT TEAM EVERY TIME!
-        p.setGender(Gender.FEMALE);
-        String error = selection.addPlayer(p);
-        if (error != null) {
-            System.out.println(error);
-        } else {
-            System.out.println("Now the selection is ");
-            for (Player player : selection.getSelection()) {
-                System.out.println(player.getName());
+                    if (pefc.submission() == null) {
+                        //Do something to relay reason for invalidness to user.
+                        pefc.highlightInvalidFields();
+                    } else {
+                        return pefc.submission();
+                    }
+                }
             }
+            return null;
+        });
+        while (dialog.getResult() == null) {
+            dialog.showAndWait();
         }
-
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "It worked, the player has been added", ButtonType.OK);
+        a.show();
     }
-
 }

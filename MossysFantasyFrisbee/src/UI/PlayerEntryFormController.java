@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -40,6 +41,8 @@ public class PlayerEntryFormController implements Initializable {
     private TextField txfShirtNumber;
     @FXML
     private ComboBox cbxTeam;
+    @FXML
+    private Label lblError;
 
     /**
      * Initializes the controller class.
@@ -47,7 +50,7 @@ public class PlayerEntryFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ArrayList<Team> teamsInTournament = getAvailableTeams(); //would query the database here, I'll come up with something hacky in the meantime!
-        
+
         for (Team t : teamsInTournament) {
             cbxTeam.getItems().add(t.getTeamName());
         }
@@ -57,18 +60,16 @@ public class PlayerEntryFormController implements Initializable {
         rbFemale.setSelected(true);
     }
 
-    @FXML
-    private void trySubmit() {
+    private Player trySubmit() {
 
-        if (txfName.getText().equalsIgnoreCase("") || cbxTeam.getValue() == null) {
-            System.out.println("You had 1 job and you failed, be sure to enter a name and select the team");
-        } else if (txfShirtNumber.getText().equalsIgnoreCase("")) {
-            System.err.println("Spinner Fail");
+        if (txfName.getText().equalsIgnoreCase("") || cbxTeam.getValue() == null || txfShirtNumber.getText().equalsIgnoreCase("")) {
+            //We want to return null so that it's clear the form was invalid
+            return null;
         } else {
             Player p = new Player(txfName.getText());
 
             p.setShirtNum(txfShirtNumber.getText());
-            
+
             if (rbFemale.isSelected()) {
                 p.setGender(Gender.FEMALE);
             } else if (rbMale.isSelected()) {
@@ -84,13 +85,35 @@ public class PlayerEntryFormController implements Initializable {
                 }
             }
             p.setTeam(team);
-            
-            Tournament.addPlayerToTournament(p);
-            System.out.println("Boom, player added");
+
+            return p;
         }
     }
 
     private ArrayList<Team> getAvailableTeams() {
         return Tournament.getTournamentTeamList();
+    }
+
+    public Player submission() {
+        return trySubmit();
+    }
+
+    public void highlightInvalidFields() {
+        if (txfName.getText().equalsIgnoreCase("")) {
+            txfName.setStyle("-fx-text-box-border: red ; -fx-focus-color: red ;");
+        } else {
+            txfName.setStyle("");
+        }
+        if (txfShirtNumber.getText().equalsIgnoreCase("")) {
+            txfShirtNumber.setStyle("-fx-text-box-border: red ; -fx-focus-color: red ;");
+        } else {
+            txfShirtNumber.setStyle("");
+        }
+        if (cbxTeam.getValue() == null) {
+            cbxTeam.setStyle("-fx-border-color: red;");
+        } else {
+            cbxTeam.setStyle("");
+        }
+        lblError.setText("Invalid Fields Highlighted in Red.");
     }
 }
